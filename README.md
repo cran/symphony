@@ -8,13 +8,19 @@
 
 Efficient and precise single-cell reference atlas mapping with Symphony
 
-[Preprint on
-bioRxiv](https://www.biorxiv.org/content/10.1101/2020.11.18.389189v2)
+[Kang et al. (Nat Comm,
+2021)](https://www.nature.com/articles/s41467-021-25957-x)
 
 # Installation
 
-Install the current version of Symphony from
-[GitHub](https://github.com/) with:
+Symphony is available on CRAN:
+
+``` r
+install.packages("symphony")
+```
+
+Install the development version of Symphony from
+[GitHub](https://github.com/) use:
 
 ``` r
 # install.packages("devtools")
