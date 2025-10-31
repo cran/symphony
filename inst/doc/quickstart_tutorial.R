@@ -1,5 +1,5 @@
 ## ----eval=FALSE---------------------------------------------------------------
-#  install.packages('symphony')
+# install.packages('symphony')
 
 ## -----------------------------------------------------------------------------
 library(symphony)
@@ -15,7 +15,6 @@ suppressPackageStartupMessages({
     # Plotting
     library(ggplot2)
     library(ggthemes)
-    library(ggrastr)
     library(RColorBrewer)
 })
 
@@ -29,8 +28,8 @@ plotBasic = function(umap_labels,                # metadata, with UMAP labels in
     
     p = umap_labels %>%
             dplyr::sample_frac(1L) %>% # permute rows randomly
-            ggplot(aes(x = UMAP1, y = UMAP2)) + 
-            geom_point_rast(aes(col = get(color.by)), size = 1, stroke = 0.4, shape = 16)
+            ggplot(aes(x = UMAP1, y = UMAP2)) +
+            geom_point(aes(col = get(color.by)), size = 1, stroke = 0.4, shape = 16)
         if (!is.null(color.mapping)) { p = p + scale_color_manual(values = color.mapping) }
     
     # Default formatting
@@ -124,7 +123,7 @@ str(reference)
 dim(reference$Z_corr)
 reference$Z_corr[1:5, 1:5]
 
-## ---- fig.width = 5.5, fig.height = 4-----------------------------------------
+## ----fig.width = 5.5, fig.height = 4------------------------------------------
 reference = readRDS('./testing_reference1.rds')
 umap_labels = cbind(ref_metadata, reference$umap$embedding)
 plotBasic(umap_labels, title = 'Reference', color.mapping = pbmc_colors)
@@ -150,7 +149,7 @@ reference = symphony::buildReference(
 # Save reference (modify with your desired output path)
 saveRDS(reference, './testing_reference2.rds')
 
-## ---- fig.width = 5.5, fig.height = 4-----------------------------------------
+## ----fig.width = 5.5, fig.height = 4------------------------------------------
 reference = readRDS('./testing_reference2.rds')
 umap_labels = cbind(ref_metadata, reference$umap$embedding)
 plotBasic(umap_labels, title = 'Reference', color.mapping = pbmc_colors)
@@ -178,7 +177,7 @@ query = knnPredict(query,       # query object
 ## -----------------------------------------------------------------------------
 head(query$meta_data)
 
-## ---- fig.width = 5.5, fig.height = 4-----------------------------------------
+## ----fig.width = 5.5, fig.height = 4------------------------------------------
 # Sync the column names for both data frames
 reference$meta_data$cell_type_pred_knn = NA
 reference$meta_data$cell_type_pred_knn_prob = NA
@@ -193,7 +192,7 @@ umap_combined_labels = cbind(meta_data_combined, umap_combined)
 # Plot UMAP visualization of all cells
 plotBasic(umap_combined_labels, title = 'Reference and query cells', color.by = 'ref_query')
 
-## ---- fig.width = 7, fig.height = 4-------------------------------------------
+## ----fig.width = 7, fig.height = 4--------------------------------------------
 plotBasic(umap_combined_labels, title = 'Reference and query cells', 
           color.mapping = pbmc_colors, facet.by = 'ref_query')
 
